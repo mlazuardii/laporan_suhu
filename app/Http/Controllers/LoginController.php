@@ -29,4 +29,8 @@ class LoginController extends Controller
             echo "Password salah";}
 
     }
+    public function logout(Request $request){
+        $request->session()->forget('status');
+        return redirect('/');
+    }
 }

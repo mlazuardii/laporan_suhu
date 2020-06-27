@@ -13,6 +13,8 @@
 
 Route::get('/', 'LoginController@index');
 Route::post('/login', 'LoginController@prosesLogin');
+Route::get('logout', "LoginController@logout");
+
 Route::get('/admin', 'AdminController@index');
 
 Route::get('/admin/input', 'AdminController@index');
