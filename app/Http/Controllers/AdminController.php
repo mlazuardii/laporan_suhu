@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 
+use PDF;
+
 class AdminController extends Controller
 {
     public function index(Request $request){
@@ -27,5 +29,13 @@ class AdminController extends Controller
 	public function cetak(Request $request){
 		$pengecekan = DB::table('pengecekan')->get();
 		return view('cetak',['pengecekan' => $pengecekan]);
+	}
+
+	public function cetakPDF(Request $request){
+		$pengecekan = DB::table('pengecekan')->get();
+		//return view('cetakpdf',['pengecekan' => $pengecekan]);
+
+		$pdf = PDF::loadview('cetakpdf',['pengecekan'=>$pengecekan]);
+		return $pdf->stream();
 	}
 }

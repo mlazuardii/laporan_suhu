@@ -33,7 +33,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/admin/input" class="nav-link">Input Suhu</a>
+                    <a href="/admin" class="nav-link">Input Suhu</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="/admin/cetak" class="nav-link">Cetak Laporan</a>
@@ -77,7 +77,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin/cetak" class="nav-link">
+                            <a href="admin/cetak" class="nav-link" target="_blank">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>
                                     Cetak Laporan
@@ -113,6 +113,8 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
+                                <a href="/admin/cetakpdf" class="brand-link">
+                                <button type="button" class="btn btn-primary">Cetak PDF</button></a>
                                     <thead>
                                         <tr>
                                             <th>Tanggal</th>
