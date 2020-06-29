@@ -10,11 +10,22 @@ class AdminController extends Controller
 {
     public function index(Request $request){
         if($request->session()->has('status')){
-			$users = DB::table('users')->get();
-
-			return view ('admin',['users' => $users]);
+			return view ('admin');
 		}else{
 			echo 'Login dulu';
 		}
-    }
+	}
+	public function input(Request $request){
+		DB::table('pengecekan')->insert([
+			'tanggal' => $request->tanggal,
+			'suhu' => $request->suhu,
+			'humidity' => $request->humidity,
+			'nama_petugas' => $request->nama_petugas,
+			]);
+			return redirect('/admin');
+	}
+	public function cetak(Request $request){
+		$pengecekan = DB::table('pengecekan')->get();
+		return view('cetak',['pengecekan' => $pengecekan]);
+	}
 }
