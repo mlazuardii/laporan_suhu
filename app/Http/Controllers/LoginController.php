@@ -23,14 +23,14 @@ class LoginController extends Controller
         ->first();
 
         if(Hash::check($user->password,Hash::make($password))){
-            $request->session()->put('status','online');
+            $request->session()->put('username',$user->nama_petugas);
             return redirect('/admin');
         }else{
             echo "Password salah";}
 
     }
     public function logout(Request $request){
-        $request->session()->forget('status');
+        $request->session()->forget('username');
         return redirect('/');
     }
 }

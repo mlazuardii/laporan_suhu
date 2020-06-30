@@ -28,6 +28,56 @@
     <link rel="stylesheet" href="assets/adminlte/plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../assets/adminlte/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../../assets/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../../assets/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../assets/adminlte/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    
+        <!-- jQuery -->
+        <script src="assets/adminlte/plugins/jquery/jquery.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="assets/adminlte/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+            $.widget.bridge('uibutton', $.ui.button)
+
+        </script>
+        <!-- Bootstrap 4 -->
+        <script src="assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- daterangepicker -->
+        <script src="assets/adminlte/plugins/moment/moment.min.js"></script>
+        <script src="assets/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script src="assets/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+        <!-- Summernote -->
+        <script src="assets/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
+        <!-- overlayScrollbars -->
+        <script src="assets/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        
+        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+        <script src="assets/adminlte/dist/js/pages/dashboard.js"></script>
+        <!-- DataTables -->
+        <script src="../../assets/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../../assets/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="../../assets/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="../../assets/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="../../assets/adminlte/dist/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="../../assets/adminlte/dist/js/demo.js"></script>
+        <!-- InputMask -->
+        <script src="assets/adminlte/plugins/moment/moment.min.js"></script>
+        <script src="assets/adminlte/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -71,6 +121,12 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar Menu -->
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="info">
+                        <a href="#" class="d-block">{{$nama}}</a>
+                    </div>
+                </div>
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
@@ -116,41 +172,77 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="container-fluid">
-                        <form action="/admin/input" class="was-validated col-sm-3">
-                        {{ csrf_field() }}
-                            <div class="form-group">
-                                <label for="tanggal">Tanggal</label>
-                                <input type="date" class="form-control" id="tanggal" placeholder="Masukan tanggal"
-                                    name="tanggal" required>
-                                <div class="valid-feedback">Valid.</div>
-                                <div class="invalid-feedback">Please fill out this field.</div>
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="/admin/input" class="was-validated col-sm-3">
+                                    {{ csrf_field() }}
+                                    <div class="form-group">
+                                        <label for="tanggal">Tanggal</label>
+                                        <input type="date" class="form-control" id="tanggal"
+                                            placeholder="Masukan tanggal" name="tanggal" value="{{ date('yy-m-d') }}"
+                                            readonly required>
+                                        <div class="valid-feedback">Valid.</div>
+                                        <div class="invalid-feedback">Please fill out this field.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="suhu">Suhu</label>
+                                        <input type="number" class="form-control" id="suhu" placeholder="Masukan suhu" name="suhu" maxlength="3">
+                                        <!-- <input type="text" class="form-control" data-inputmask='"mask": "999"' data-mask> -->
+                                        <div class="valid-feedback">Valid.</div>
+                                        <div class="invalid-feedback">Please fill out this field.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="humidity">Humidity</label>
+                                        <input type="text" class="form-control" id="humidity"
+                                            placeholder="Masukan humidity" name="humidity" data-inputmask='"mask": "999"' data-mask required>
+                                        <div class="valid-feedback">Valid.</div>
+                                        <div class="invalid-feedback">Please fill out this field.</div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                                </form>
+                            </div class="card-body">
+                        </div class="card">
+
+                        <div class="card">
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Tanggal</th>
+                                            <th>Suhu</th>
+                                            <th>Humidity</th>
+                                            <th>Petugas</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($pengecekan as $p)
+                                        <tr>
+                                            <td>{{ $p->tanggal }}</td>
+                                            <td>{{ $p->suhu }}</td>
+                                            <td>{{ $p->humidity }}</td>
+                                            <td>{{ $p->nama_petugas }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Tanggal</th>
+                                            <th>Suhu</th>
+                                            <th>Humidity</th>
+                                            <th>Petugas</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
-                            <div class="form-group">
-                                <label for="suhu">Suhu</label>
-                                <input type="number" class="form-control" id="number" placeholder="Masukan suhu"
-                                    name="suhu" required>
-                                <div class="valid-feedback">Valid.</div>
-                                <div class="invalid-feedback">Please fill out this field.</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="humidity">Humidity</label>
-                                <input type="number" class="form-control" id="number" placeholder="Masukan humidity"
-                                    name="humidity" required>
-                                <div class="valid-feedback">Valid.</div>
-                                <div class="invalid-feedback">Please fill out this field.</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="petugas">Nama Petugas</label>
-                                <input type="text" class="form-control" id="number" placeholder="Masukan nama petugas"
-                                    name="nama_petugas" required>
-                                <div class="valid-feedback">Valid.</div>
-                                <div class="invalid-feedback">Please fill out this field.</div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+                            <!-- /.card-body -->
+                        </div>
 
 
-                    </div><!-- /.container-fluid -->
+                        </><!-- /.container-fluid -->
                 </section>
                 <!-- /.content -->
             </div>
@@ -171,41 +263,98 @@
         </div>
         <!-- ./wrapper -->
 
-        <!-- jQuery -->
-        <script src="assets/adminlte/plugins/jquery/jquery.min.js"></script>
-        <!-- jQuery UI 1.11.4 -->
-        <script src="assets/adminlte/plugins/jquery-ui/jquery-ui.min.js"></script>
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <!-- page script -->
         <script>
-            $.widget.bridge('uibutton', $.ui.button)
+            $(function () {
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "autoWidth": false,
+                });
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });
+            });
 
         </script>
-        <!-- Bootstrap 4 -->
-        <script src="assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- ChartJS -->
-        <script src="assets/adminlte/plugins/chart.js/Chart.min.js"></script>
-        <!-- Sparkline -->
-        <script src="assets/adminlte/plugins/sparklines/sparkline.js"></script>
-        <!-- JQVMap -->
-        <script src="assets/adminlte/plugins/jqvmap/jquery.vmap.min.js"></script>
-        <script src="assets/adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-        <!-- jQuery Knob Chart -->
-        <script src="assets/adminlte/plugins/jquery-knob/jquery.knob.min.js"></script>
-        <!-- daterangepicker -->
-        <script src="assets/adminlte/plugins/moment/moment.min.js"></script>
-        <script src="assets/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
-        <!-- Tempusdominus Bootstrap 4 -->
-        <script src="assets/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-        <!-- Summernote -->
-        <script src="assets/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
-        <!-- overlayScrollbars -->
-        <script src="assets/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-        <!-- AdminLTE App -->
-        <script src="assets/adminlte/dist/js/adminlte.js"></script>
-        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="assets/adminlte/dist/js/pages/dashboard.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="assets/adminlte/dist/js/demo.js"></script>
+        <script>
+            $(function () {
+                //Initialize Select2 Elements
+                $('.select2').select2()
+
+                //Initialize Select2 Elements
+                $('.select2bs4').select2({
+                    theme: 'bootstrap4'
+                })
+
+                
+                //Money Euro
+                $('[data-mask]').inputmask()
+
+                //Date range picker
+                $('#reservationdate').datetimepicker({
+                    format: 'L'
+                });
+                //Date range picker
+                $('#reservation').daterangepicker()
+                //Date range picker with time picker
+                $('#reservationtime').daterangepicker({
+                    timePicker: true,
+                    timePickerIncrement: 30,
+                    locale: {
+                        format: 'MM/DD/YYYY hh:mm A'
+                    }
+                })
+                //Date range as a button
+                $('#daterange-btn').daterangepicker({
+                        ranges: {
+                            'Today': [moment(), moment()],
+                            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                            'This Month': [moment().startOf('month'), moment().endOf('month')],
+                            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment()
+                                .subtract(1, 'month').endOf('month')
+                            ]
+                        },
+                        startDate: moment().subtract(29, 'days'),
+                        endDate: moment()
+                    },
+                    function (start, end) {
+                        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
+                            'MMMM D, YYYY'))
+                    }
+                )
+
+                //Timepicker
+                $('#timepicker').datetimepicker({
+                    format: 'LT'
+                })
+
+                //Bootstrap Duallistbox
+                $('.duallistbox').bootstrapDualListbox()
+
+                //Colorpicker
+                $('.my-colorpicker1').colorpicker()
+                //color picker with addon
+                $('.my-colorpicker2').colorpicker()
+
+                $('.my-colorpicker2').on('colorpickerChange', function (event) {
+                    $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+                });
+
+                $("input[data-bootstrap-switch]").each(function () {
+                    $(this).bootstrapSwitch('state', $(this).prop('checked'));
+                });
+
+            })
+
+        </script>
 </body>
 
 </html>

@@ -54,7 +54,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="/admin" class="brand-link">
                 <img src="/assets/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Laporan Suhu</span>
@@ -63,6 +63,11 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar Menu -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="info">
+                        <a href="#" class="d-block">{{$nama}}</a>
+                    </div>
+                </div>
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
@@ -97,6 +102,7 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
+
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0 text-dark">Cetak laporan</h1>
@@ -112,36 +118,49 @@
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                <a href="/admin/cetakpdf" class="brand-link">
-                                <button type="button" class="btn btn-primary">Cetak PDF</button></a>
-                                    <thead>
-                                        <tr>
-                                            <th>Tanggal</th>
-                                            <th>Suhu</th>
-                                            <th>Humidity</th>
-                                            <th>Petugas</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($pengecekan as $p)
-                                        <tr>
-                                            <td>{{ $p->tanggal }}</td>
-                                            <td>{{ $p->suhu }}</td>
-                                            <td>{{ $p->humidity }}</td>
-                                            <td>{{ $p->nama_petugas }}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                            <th>Tanggal</th>
-                                            <th>Suhu</th>
-                                            <th>Humidity</th>
-                                            <th>Petugas</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+
+                                <form class="form-inline" action="/admin/cetakpdf">
+
+                                    <div class="col-md-1">
+                                        <label class="sr-only" for="inlineFormInputGroupUsername">Bulan</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Bulan</div>
+                                            </div>
+                                            <?php
+                                            $now=date('m');
+                                            echo "<select name='bulan' class='custom-select'>";
+                                            for ($a=01;$a<=$now;$a++){
+                                                echo "<option value='$a'>$a</option>";
+                                            }
+                                            echo "</select>";
+                                            ?>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-2">
+                                        <label class="sr-only" for="inlineFormInputGroupUsername">Tahun</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Tahun</div>
+                                            </div>
+                                            <?php
+                                            $now=date('Y');
+                                            echo "<select name='tahun' class='custom-select'>";
+                                            for ($a=2019;$a<=$now;$a++){
+                                                echo "<option value='$a'>$a</option>";
+                                            }
+                                            echo "</select>";
+                                            ?>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary ">Submit</button>
+                                </form>
+
+
+
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -202,6 +221,7 @@
             });
 
         </script>
+
 
 
 
