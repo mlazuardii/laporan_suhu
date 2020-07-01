@@ -20,12 +20,13 @@ class AdminController extends Controller
 		}
 	}
 	public function input(Request $request){
-		DB::table('pengecekan')->insert([
-			'tanggal' => $request->tanggal,
-			'suhu' => $request->suhu,
+		DB::table('pengecekan')
+		->updateOrInsert(
+			['tanggal' => $request->tanggal,],
+			['suhu' => $request->suhu,
 			'humidity' => $request->humidity,
-			'nama_petugas' => $request->session()->get('username'),
-			]);
+			'nama_petugas' => $request->session()->get('username'),]
+		);
 			return redirect('/admin');
 	}
 	public function cetak(Request $request){
@@ -46,7 +47,7 @@ class AdminController extends Controller
 		->whereYear('tanggal', '=', $tahun)
 		->get();
 
-		$pdf = PDF::loadview('cetakpdf',['pengecekan'=>$pengecekan]);
+		$pdf = PDF::loadview('cetakpdf',['pengecekan'=>$pengecekan,'bulan'=>$bulan,'tahun'=>$tahun]);
 		return $pdf->stream();
 	}
 }

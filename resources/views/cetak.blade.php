@@ -148,7 +148,7 @@
                                             <?php
                                             $now=date('Y');
                                             echo "<select name='tahun' class='custom-select'>";
-                                            for ($a=2019;$a<=$now;$a++){
+                                            for ($a=2020;$a<=$now;$a++){
                                                 echo "<option value='$a'>$a</option>";
                                             }
                                             echo "</select>";
