@@ -124,20 +124,20 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0 text-dark">Input Suhu</h1>
                         </div><!-- /.row -->
-                    </div><!-- /.container-fluid -->
-                </div>
-                <!-- /.content-header -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
 
-                <!-- Main content -->
-                <section class="content">
-                    <div class="container-fluid">
-                        <div class="card">
-                            <div class="card-body">
-                                <form action="/admin/input" class="was-validated col-sm-3">
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="card col-md-6">
+                            <div class="card-body col-md-10">
+                                <form action="/admin/input" class="was-validated">
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <label for="tanggal">Tanggal</label>
@@ -149,7 +149,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="suhu">Suhu (°C)</label>
-                                        <input type="text" class="form-control" id="suhu" placeholder="Masukan suhu" name="suhu" required>
+                                        <input type="text" class="form-control" id="suhu" placeholder="Masukan suhu"
+                                            name="suhu" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
@@ -164,10 +165,37 @@
                                     <button type="submit" class="btn btn-primary">Submit</button>
 
                                 </form>
+
                             </div class="card-body">
                         </div class="card">
 
-                        <div class="card">
+                        <div class="card col-md-6">
+                            <!-- LINE CHART -->
+                            <div class="card card-info">
+                                <div class="card-header">
+                                    <h3 class="card-title">Line Chart</h3>
+
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                                class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                                                class="fas fa-times"></i></button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <canvas id="lineChart"
+                                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="card col-md-12">
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
@@ -205,10 +233,10 @@
                             </div>
                             <!-- /.card-body -->
                         </div>
-
-
-                        </><!-- /.container-fluid -->
-                </section>
+                    </div>
+                </div>
+                    
+            </section>
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
@@ -225,8 +253,8 @@
                 <!-- Control sidebar content goes here -->
             </aside>
             <!-- /.control-sidebar -->
-        </div>
-        <!-- ./wrapper -->
+    </div>
+    <!-- ./wrapper -->
 
         <!-- jQuery -->
         <script src="assets/adminlte/plugins/jquery/jquery.min.js"></script>
@@ -235,11 +263,11 @@
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
             $.widget.bridge('uibutton', $.ui.button)
-
         </script>
         <!-- Bootstrap 4 -->
         <script src="assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         
+
         <!-- daterangepicker -->
         <script src="assets/adminlte/plugins/moment/moment.min.js"></script>
         <script src="assets/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
@@ -249,9 +277,7 @@
         <script src="assets/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
         <!-- overlayScrollbars -->
         <script src="assets/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-        
-        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="assets/adminlte/dist/js/pages/dashboard.js"></script>
+
         <!-- DataTables -->
         <script src="../../assets/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="../../assets/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -259,14 +285,13 @@
         <script src="../../assets/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
         <!-- AdminLTE App -->
         <script src="../../assets/adminlte/dist/js/adminlte.min.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="../../assets/adminlte/dist/js/demo.js"></script>
         <!-- InputMask -->
         <script src="assets/adminlte/plugins/moment/moment.min.js"></script>
         <script src="assets/adminlte/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="../../assets/adminlte/plugins/chart.js/Chart.min.js"></script>
 
-        <!-- page script -->
-        
+
         <script>
             $(function () {
                 $("#example1").DataTable({
@@ -287,74 +312,185 @@
         </script>
         <script>
             $(function () {
-                //Initialize Select2 Elements
-                $('.select2').select2()
+                /* ChartJS
+                 * -------
+                 * Here we will create a few charts using ChartJS
+                 */
 
-                //Initialize Select2 Elements
-                $('.select2bs4').select2({
-                    theme: 'bootstrap4'
-                })
+                //--------------
+                //- AREA CHART -
+                //--------------
 
-                
-                //Money Euro
-                $('[data-mask]').inputmask()
+                // Get context with jQuery - using jQuery's .get() method.
+                var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
 
-                //Date range picker
-                $('#reservationdate').datetimepicker({
-                    format: 'L'
-                });
-                //Date range picker
-                $('#reservation').daterangepicker()
-                //Date range picker with time picker
-                $('#reservationtime').daterangepicker({
-                    timePicker: true,
-                    timePickerIncrement: 30,
-                    locale: {
-                        format: 'MM/DD/YYYY hh:mm A'
-                    }
-                })
-                //Date range as a button
-                $('#daterange-btn').daterangepicker({
-                        ranges: {
-                            'Today': [moment(), moment()],
-                            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                            'This Month': [moment().startOf('month'), moment().endOf('month')],
-                            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment()
-                                .subtract(1, 'month').endOf('month')
-                            ]
+                var areaChartData = {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    datasets: [{
+                            label: 'Digital Goods',
+                            backgroundColor: 'rgba(60,141,188,0.9)',
+                            borderColor: 'rgba(60,141,188,0.8)',
+                            pointRadius: false,
+                            pointColor: '#3b8bba',
+                            pointStrokeColor: 'rgba(60,141,188,1)',
+                            pointHighlightFill: '#fff',
+                            pointHighlightStroke: 'rgba(60,141,188,1)',
+                            data: [28, 48, 40, 19, 86, 27, 90]
                         },
-                        startDate: moment().subtract(29, 'days'),
-                        endDate: moment()
-                    },
-                    function (start, end) {
-                        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
-                            'MMMM D, YYYY'))
-                    }
-                )
+                        {
+                            label: 'Electronics',
+                            backgroundColor: 'rgba(210, 214, 222, 1)',
+                            borderColor: 'rgba(210, 214, 222, 1)',
+                            pointRadius: false,
+                            pointColor: 'rgba(210, 214, 222, 1)',
+                            pointStrokeColor: '#c1c7d1',
+                            pointHighlightFill: '#fff',
+                            pointHighlightStroke: 'rgba(220,220,220,1)',
+                            data: [65, 59, 80, 81, 56, 55, 40]
+                        },
+                    ]
+                }
 
-                //Timepicker
-                $('#timepicker').datetimepicker({
-                    format: 'LT'
+                var areaChartOptions = {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        xAxes: [{
+                            gridLines: {
+                                display: false,
+                            }
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                display: false,
+                            }
+                        }]
+                    }
+                }
+
+                // This will get the first returned node in the jQuery collection.
+                var areaChart = new Chart(areaChartCanvas, {
+                    type: 'line',
+                    data: areaChartData,
+                    options: areaChartOptions
                 })
 
-                //Bootstrap Duallistbox
-                $('.duallistbox').bootstrapDualListbox()
+                //-------------
+                //- LINE CHART -
+                //--------------
+                var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+                var lineChartOptions = jQuery.extend(true, {}, areaChartOptions)
+                var lineChartData = jQuery.extend(true, {}, areaChartData)
+                lineChartData.datasets[0].fill = false;
+                lineChartData.datasets[1].fill = false;
+                lineChartOptions.datasetFill = false
 
-                //Colorpicker
-                $('.my-colorpicker1').colorpicker()
-                //color picker with addon
-                $('.my-colorpicker2').colorpicker()
+                var lineChart = new Chart(lineChartCanvas, {
+                    type: 'line',
+                    data: lineChartData,
+                    options: lineChartOptions
+                })
 
-                $('.my-colorpicker2').on('colorpickerChange', function (event) {
-                    $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-                });
+                //-------------
+                //- DONUT CHART -
+                //-------------
+                // Get context with jQuery - using jQuery's .get() method.
+                var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+                var donutData = {
+                    labels: [
+                        'Chrome',
+                        'IE',
+                        'FireFox',
+                        'Safari',
+                        'Opera',
+                        'Navigator',
+                    ],
+                    datasets: [{
+                        data: [700, 500, 400, 600, 300, 100],
+                        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc',
+                            '#d2d6de'
+                        ],
+                    }]
+                }
+                var donutOptions = {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                }
+                //Create pie or douhnut chart
+                // You can switch between pie and douhnut using the method below.
+                var donutChart = new Chart(donutChartCanvas, {
+                    type: 'doughnut',
+                    data: donutData,
+                    options: donutOptions
+                })
 
-                $("input[data-bootstrap-switch]").each(function () {
-                    $(this).bootstrapSwitch('state', $(this).prop('checked'));
-                });
+                //-------------
+                //- PIE CHART -
+                //-------------
+                // Get context with jQuery - using jQuery's .get() method.
+                var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+                var pieData = donutData;
+                var pieOptions = {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                }
+                //Create pie or douhnut chart
+                // You can switch between pie and douhnut using the method below.
+                var pieChart = new Chart(pieChartCanvas, {
+                    type: 'pie',
+                    data: pieData,
+                    options: pieOptions
+                })
 
+                //-------------
+                //- BAR CHART -
+                //-------------
+                var barChartCanvas = $('#barChart').get(0).getContext('2d')
+                var barChartData = jQuery.extend(true, {}, areaChartData)
+                var temp0 = areaChartData.datasets[0]
+                var temp1 = areaChartData.datasets[1]
+                barChartData.datasets[0] = temp1
+                barChartData.datasets[1] = temp0
+
+                var barChartOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    datasetFill: false
+                }
+
+                var barChart = new Chart(barChartCanvas, {
+                    type: 'bar',
+                    data: barChartData,
+                    options: barChartOptions
+                })
+
+                //---------------------
+                //- STACKED BAR CHART -
+                //---------------------
+                var stackedBarChartCanvas = $('#stackedBarChart').get(0).getContext('2d')
+                var stackedBarChartData = jQuery.extend(true, {}, barChartData)
+
+                var stackedBarChartOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                        }],
+                        yAxes: [{
+                            stacked: true
+                        }]
+                    }
+                }
+
+                var stackedBarChart = new Chart(stackedBarChartCanvas, {
+                    type: 'bar',
+                    data: stackedBarChartData,
+                    options: stackedBarChartOptions
+                })
             })
 
         </script>

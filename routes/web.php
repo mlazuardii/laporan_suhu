@@ -20,3 +20,7 @@ Route::get('/admin/input', 'AdminController@input');
 Route::get('/admin/cetak', 'AdminController@cetak');
 
 Route::get('/admin/cetakpdf', 'AdminController@cetakPDF');
+
+Route::get('/tes', function () {
+    return view('tes');
+});

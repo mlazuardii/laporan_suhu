@@ -2,140 +2,129 @@
 
 <head>
     <style>
-        /** 
-                Set the margins of the page to 0, so the footer and the header
-                can be of the full height and width !
-             **/
         @page {
-            margin: 1cm 1cm;
-            border-style: solid;
-            border-width: 5px;
+            margin: 0cm 0cm;
         }
 
-        /** Define now the real margins of every page in the PDF **/
-        body {
-            margin-top: 3cm;
-            margin-left: 2cm;
-            margin-right: 2cm;
-            margin-bottom: 2cm;
-        }
-
-        /** Define the header rules **/
-        header {
-            position: fixed;
-            top: 0cm;
-            left: 0cm;
-            right: 0cm;
-            height: 2cm;
-
-            /** Extra personal styles **/
-            background-color: white;
-            color: black;
+        .container {
+            position: relative;
             text-align: center;
-            line-height: 1cm;
-        }
-
-        /** Define the footer rules **/
-        footer {
-            position: fixed;
-            bottom: 0cm;
-            left: 0cm;
-            right: 0cm;
-            height: 2cm;
-
-            /** Extra personal styles **/
-            background-color: white;
             color: black;
-            text-align: center;
-            line-height: 1.5cm;
-        }
-        #customers {
-            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-            font-size:12px;
-            border-collapse: collapse;
-            width: 100%;
         }
 
-        #customers td, #customers th {
-            border: 1px solid #ddd;
-            padding: 3px;
+        /* Bottom left text */
+        .bottom-left {
+            position: absolute;
+            bottom: 8px;
+            left: 16px;
         }
 
-        #customers tr:nth-child(even){background-color: #f2f2f2;}
-
-        #customers tr:hover {background-color: #ddd;}
-
-        #customers th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: #4CAF50;
-            color: white;
+        /* Top left text */
+        .top-left {
+            position: absolute;
+            top: 8px;
+            left: 16px;
         }
+
+        /* Top right text */
+        .top-right {
+            position: absolute;
+            top: 8px;
+            right: 16px;
+        }
+
+        /* Bottom right text */
+        .bottom-right {
+            position: absolute;
+            bottom: 8px;
+            right: 16px;
+        }
+
+        /* Centered text */
+        .centered {
+            font-family: Calibri, sans-serif;
+            font-size: 10px;
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        section table {
+			width: 100%;
+			border-collapse: collapse;
+			border-spacing: 0;
+			font-size: 0.9166em;
+		}
+		section table thead {
+			display: table-header-group;
+			vertical-align: middle;
+			border-color: inherit;
+		}
+		section table thead th {
+			padding: 5px 10px;
+			background: #bfbfbf;
+			border-bottom: 5px solid #FFFFFF;
+			border-right: 1px solid #FFFFFF;
+			text-align: center;
+			color: black;
+			font-weight: 400;
+            font-style: bold;
+			text-transform: uppercase;
+		}
+		section table tbody td {
+			padding: 10px;
+			background: #d9d9d9;
+			color: black;
+			text-align: center;
+			border-bottom: 1px solid #FFFFFF;
+			border-right: 1px solid #E8F3DB;
+		}
     </style>
 </head>
 
 <body>
-    <!-- Define header and footer blocks before your content -->
-    <header>
-        MONITORING SUHU RUANGAN SERVER<br>
-        Periode : {{$bulan}}-{{$tahun}}
-    </header>
+    <div class="container">
+        <img src="img/laporan.jpg" alt="Snow" style="width:100%;">
+        <!-- <div class="bottom-left">Bottom Left</div>
+        <div class="top-left">Top Left</div>
+        <div class="top-right">Top Right</div>
+        <div class="bottom-right">Bottom Right</div> -->
+        <div class="centered">
 
-    <footer>
-        Copyright &copy; <?php echo date("Y");?>
-    </footer>
+            <div class="container-fluid">
+            <p>MONITORING SUHU RUANGAN SERVER</p>
+            <p>Periode : {{$bulan}} - {{$tahun}}</p>
 
-    <!-- Wrap the content of your PDF inside a main tag -->
-    <main>
-        <div class="container-fluid">
+            <section>            
+            <table id="table" class="table">
 
-            <div class="card">
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <table id="customers" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Suhu (°C)</th>
+                                    <th>Humidity (%)</th>
+                                    <th>Keterangan</th>
+                                    <th>Petugas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($pengecekan as $p)
+                                <tr>
+                                    <td>{{ $p->tanggal }}</td>
+                                    <td>{{ $p->suhu }}</td>
+                                    <td>{{ $p->humidity }}</td>
+                                    <td>{{ $p->keterangan }}</td>
+                                    <td>{{ $p->nama_petugas }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+    </section>
+                    </div>
+        </div>
+    </div>
 
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Tanggal</th>
-                                <th>Suhu</th>
-                                <th>Humidity</th>
-                                <th>Keterangan</th>
-                                <th>Petugas</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $jumlahhari=cal_days_in_month(CAL_GREGORIAN,$bulan,$tahun);
-                        for($i = 1; $i <= $jumlahhari; $i++){
-                            echo '<tr>';
-                            echo '<td>'.$i;
-                            echo '</tr>';
-
-
-                        }
-                        ?>
-                            @foreach($pengecekan as $p)
-                            <tr>
-                                <td>{{ $p->tanggal }}</td>
-                                <td>{{ $p->suhu }}</td>
-                                <td>{{ $p->humidity }}</td>
-                                <td>{{ $p->keterangan }}</td>
-                                <td>{{ $p->nama_petugas }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.card-body -->
-            </div>
-
-
-
-
-        </div><!-- /.container-fluid -->
-    </main>
 </body>
 
 </html>
