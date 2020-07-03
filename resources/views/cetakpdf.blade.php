@@ -45,7 +45,7 @@
             font-family: Calibri, sans-serif;
             font-size: 10px;
             position: absolute;
-            top: 15%;
+            top: 200px;
             left: 50%;
             transform: translate(-50%, -50%);
         }

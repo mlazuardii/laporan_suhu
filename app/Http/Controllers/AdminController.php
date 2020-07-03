@@ -13,10 +13,10 @@ class AdminController extends Controller
     public function index(Request $request){
         if($request->session()->has('username')){
 			$nama = $request->session()->get('username');
-			$pengecekan = DB::table('pengecekan')->get();
+			$pengecekan = DB::table('pengecekan')->orderBy('tanggal', 'desc')->get();
 			return view ('admin',['nama' => $nama,'pengecekan'=>$pengecekan]);
 		}else{
-			echo 'Login dulu';
+			return redirect('/');
 		}
 	}
 	public function input(Request $request){
@@ -25,6 +25,7 @@ class AdminController extends Controller
 			['tanggal' => $request->tanggal,],
 			['suhu' => $request->suhu,
 			'humidity' => $request->humidity,
+			'keterangan' => $request->keterangan,
 			'nama_petugas' => $request->session()->get('username'),]
 		);
 			return redirect('/admin');

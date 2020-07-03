@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
                 'keterangan' => 'Hari Libur',
                 'nama_petugas' => 0,
                 ]);
-        })->dailyAt('08:30');
+        })->everyMinute();
     }
 
     /**
