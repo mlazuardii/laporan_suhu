@@ -45,7 +45,7 @@
             font-family: Calibri, sans-serif;
             font-size: 10px;
             position: absolute;
-            top: 200px;
+            top: 20%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
@@ -93,7 +93,7 @@
         <div class="centered">
 
             <div class="container-fluid">
-            <p>MONITORING SUHU RUANGAN SERVER</p>
+            <p><b>MONITORING SUHU RUANGAN SERVER</b></p>
             <p>Periode : {{$bulan}} - {{$tahun}}</p>
 
             <section>            

@@ -157,7 +157,7 @@
                                     <div class="form-group">
                                         <label for="humidity">Humidity (%)</label>
                                         <input type="text" class="form-control" id="humidity"
-                                            placeholder="Masukan humidity" name="humidity" required data-inputmask="'mask': ['999']" data-mask>
+                                            placeholder="Masukan humidity" name="humidity" required data-inputmask="'mask': ['99']" data-mask>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
