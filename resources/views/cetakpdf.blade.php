@@ -45,9 +45,9 @@
             font-family: Calibri, sans-serif;
             font-size: 10px;
             position: absolute;
-            top: 20%;
+            top: 10%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, 10px);
         }
 
         section table {

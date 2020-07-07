@@ -31,21 +31,29 @@ class AdminController extends Controller
 			return redirect('/admin');
 	}
 	public function cetak(Request $request){
-		$nama = $request->session()->get('username');
-		return view('cetak',['nama' => $nama]);
+		if($request->session()->has('username')){
+			$nama = $request->session()->get('username');
+			return view('cetak',['nama' => $nama]);
+		}else{
+			return redirect('/');
+		}
 	}
 
 	public function cetakPDF(Request $request){
+		if($request->session()->has('username')){
 
-		$bulan = $request->bulan;
-		$tahun = $request->tahun;
+			$bulan = $request->bulan;
+			$tahun = $request->tahun;
 
-		$pengecekan = DB::table("pengecekan")
-		->whereMonth('tanggal', '=', $bulan)
-		->whereYear('tanggal', '=', $tahun)
-		->get();
+			$pengecekan = DB::table("pengecekan")
+			->whereMonth('tanggal', '=', $bulan)
+			->whereYear('tanggal', '=', $tahun)
+			->get();
 
-		$pdf = PDF::loadview('cetakpdf',['pengecekan'=>$pengecekan,'bulan'=>$bulan,'tahun'=>$tahun]);
-		return $pdf->stream();
+			$pdf = PDF::loadview('cetakpdf',['pengecekan'=>$pengecekan,'bulan'=>$bulan,'tahun'=>$tahun]);
+			return $pdf->stream();
+		}else{
+			return redirect('/');
+		}
 	}
 }
