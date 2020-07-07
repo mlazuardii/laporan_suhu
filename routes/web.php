@@ -17,7 +17,7 @@ Route::get('/logout', "LoginController@logout");
 
 Route::get('/admin', 'AdminController@index');
 Route::get('/admin/input', 'AdminController@input');
-Route::get('/admin/cetak', 'AdminController@cetak');
+Route::get('cetak', 'AdminController@cetak');
 
 Route::get('/admin/cetakpdf', 'AdminController@cetakPDF');
 

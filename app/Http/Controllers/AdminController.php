@@ -31,15 +31,12 @@ class AdminController extends Controller
 			return redirect('/admin');
 	}
 	public function cetak(Request $request){
-		//$pengecekan = DB::table('pengecekan')->get();
 		$nama = $request->session()->get('username');
 		return view('cetak',['nama' => $nama]);
 	}
 
 	public function cetakPDF(Request $request){
-		//$pengecekan = DB::table('pengecekan')->where(MONTH(tanggal), 06)->get();
-		//$pengecekan = DB::table('pengecekan')->get();
-		//return view('cetakpdf',['pengecekan' => $pengecekan]);
+
 		$bulan = $request->bulan;
 		$tahun = $request->tahun;
 

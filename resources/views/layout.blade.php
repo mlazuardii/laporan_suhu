@@ -54,7 +54,7 @@
                     <a href="/admin" class="nav-link">Input Suhu</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/admin/cetak" class="nav-link">Cetak Laporan</a>
+                    <a href="cetak" class="nav-link">Cetak Laporan</a>
                 </li>
             </ul>
             <!-- Right navbar links -->
@@ -81,7 +81,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="info">
-                        <a href="#" class="d-block">Nama</a>
+                        <a href="#" class="d-block">@yield('petugas')</a>
                     </div>
                 </div>
                 <nav class="mt-2">
@@ -98,7 +98,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin/cetak" class="nav-link">
+                            <a href="cetak" class="nav-link">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>
                                     Cetak Laporan
@@ -117,7 +117,7 @@
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Input Suhu</h1>
+                        <h1 class="m-0 text-dark">@yield('judul')</h1>
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
@@ -125,9 +125,9 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    <div class="row">
 
-                    </div>
+                    @yield('content')
+
                 </div>
             </section>
             <!-- /.content -->
@@ -142,27 +142,6 @@
         </footer>
     </div>
     <!-- ./wrapper -->
-
-    <!-- jQuery -->
-    <script src="{{asset('assets/adminlte/plugins/jquery/jquery.min.js')}}"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{asset('assets/adminlte/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="{{asset('assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <!-- Summernote -->
-    <script src="{{asset('assets/adminlte/plugins/summernote/summernote-bs4.min.js')}}"></script>
-    <!-- overlayScrollbars -->
-    <script src="{{asset('assets/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{asset('../../assets/adminlte/dist/js/adminlte.min.js')}}"></script>
-    <!-- Select2 -->
-    <script src="{{asset('../../assets/adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
-    <!-- Bootstrap4 Duallistbox -->
-    <link rel="stylesheet"
-        href="{{asset('../../assets/adminlte/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css')}}">
+    @yield('script')
 </body>
 </html>
