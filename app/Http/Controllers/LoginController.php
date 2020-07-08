@@ -17,17 +17,18 @@ class LoginController extends Controller
 
         $username=$request->username;
         $password=$request->pass;
-
+        
         $user = DB::table('users')
         ->where('username',$username)
         ->first();
 
-        if(Hash::check($user->password,Hash::make($password))){
+        if(empty($user)){
+            echo "Username salah!";
+        } else if(Hash::check($user->password,Hash::make($password))){
             $request->session()->put('username',$user->nama_petugas);
             return redirect('/admin');
-        }else{
+            }else{
             echo "Password salah";}
-
     }
     public function logout(Request $request){
         $request->session()->forget('username');
