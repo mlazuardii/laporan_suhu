@@ -182,7 +182,7 @@ Input Suhu
             var lineChartData = {
             labels  : [<?php 
             $i = 0;
-            foreach($pengecekan as $p){
+            foreach($pengecekan->reverse() as $p){
                 echo json_encode($p->tanggal);
                 echo ',';
                 if (++$i == 30) break;
@@ -199,7 +199,7 @@ Input Suhu
                 pointHighlightStroke: 'rgba(60,141,188,1)',
                 data                : [<?php 
                 $i = 0;
-                foreach($pengecekan as $p){
+                foreach($pengecekan->reverse() as $p){
                 echo $p->suhu;
                 echo ',';
                 if (++$i == 30) break;
@@ -216,7 +216,7 @@ Input Suhu
                 pointHighlightStroke: 'rgba(220,220,220,1)',
                 data                : [<?php 
                 $i = 0;
-                foreach($pengecekan as $p){
+                foreach($pengecekan->reverse() as $p){
                 echo $p->humidity;
                 echo ',';
                 if (++$i == 30) break;
